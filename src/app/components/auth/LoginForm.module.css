@@ -1,0 +1,202 @@
+/* Login Form Styles */
+.loginForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 0.5rem;
+  color: #fca5a5;
+  font-size: 0.875rem;
+}
+
+.errorIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.input {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(45, 85, 150, 0.3);
+  border-radius: 0.5rem;
+  background: rgba(45, 85, 150, 0.05);
+  color: white;
+  font-size: 1rem;
+  transition: all 200ms;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgb(45, 85, 150);
+  background: rgba(45, 85, 150, 0.1);
+  box-shadow: 0 0 0 3px rgba(45, 85, 150, 0.1);
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: rgb(45, 85, 150);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: rgb(55, 105, 180);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 85, 150, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading {
+  pointer-events: none;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: rgb(45, 85, 150);
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: color 200ms;
+}
+
+.linkButton:hover {
+  color: rgb(55, 105, 180);
+}
+
+.divider {
+  margin: 1.5rem 0;
+  position: relative;
+  text-align: center;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(45, 85, 150, 0.2);
+}
+
+.divider span {
+  background: rgba(15, 25, 45, 0.98);
+  padding: 0 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+}
+
+.switchButton {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(45, 85, 150, 0.5);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.switchButton:hover {
+  background: rgba(45, 85, 150, 0.1);
+  border-color: rgb(45, 85, 150);
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .loginForm {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .form {
+    gap: 1.25rem;
+  }
+}

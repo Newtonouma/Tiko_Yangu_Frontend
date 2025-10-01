@@ -1,0 +1,240 @@
+/* NavBar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(10, 20, 40, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(45, 85, 150, 0);
+  height: 70px;
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Section */
+.logoSection {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logoText {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: white;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.02em;
+  transition: color 200ms;
+}
+
+.logoText:hover {
+  color: rgb(45, 85, 150);
+}
+
+/* Right Section */
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Search Button */
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(45, 85, 150, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.searchButton:hover {
+  background: rgba(45, 85, 150, 0.2);
+  transform: scale(1.05);
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Auth Section */
+.authSection {
+  position: relative;
+}
+
+.authButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(45, 85, 150, 0.3);
+  background: rgba(45, 85, 150, 0.1);
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.authButton:hover {
+  background: rgba(45, 85, 150, 0.2);
+  border-color: rgba(45, 85, 150, 0.5);
+  transform: translateY(-1px);
+}
+
+.userIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.chevronIcon {
+  width: 16px;
+  height: 16px;
+  transition: transform 200ms;
+}
+
+.chevronUp {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: rgba(15, 25, 45, 0.98);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(45, 85, 150, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0;
+  animation: dropdownSlide 200ms ease-out;
+  z-index: 60;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 200ms;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dropdownItem:hover {
+  background: rgba(45, 85, 150, 0.15);
+  color: white;
+  padding-left: 1.25rem;
+}
+
+.dropdownIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: rgba(45, 85, 150, 0.2);
+  margin: 0.5rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0 1rem;
+  }
+  
+  .logoText {
+    font-size: 1.5rem;
+  }
+  
+  .rightSection {
+    gap: 0.75rem;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .searchIcon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .authButton {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .dropdownMenu {
+    min-width: 180px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navContainer {
+    padding: 0 0.75rem;
+  }
+  
+  .logoText {
+    font-size: 1.25rem;
+  }
+  
+  .rightSection {
+    gap: 0.5rem;
+  }
+  
+  .authButton {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .authButton span {
+    display: none;
+  }
+}
