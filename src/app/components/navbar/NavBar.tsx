@@ -2,16 +2,15 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
-import AuthModal from '../auth/AuthModal';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalView, setAuthModalView] = useState<'login' | 'register'>('login');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, isAuthenticated, logout } = useAuth();
+  const router = useRouter();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -37,13 +36,11 @@ const NavBar = () => {
   };
 
   const handleLogin = () => {
-    setAuthModalView('login');
-    setIsAuthModalOpen(true);
+    router.push('/login');
   };
 
   const handleRegister = () => {
-    setAuthModalView('register');
-    setIsAuthModalOpen(true);
+    router.push('/register');
   };
 
   const handleLogout = () => {
@@ -228,13 +225,6 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      
-      {/* Auth Modal */}
-      <AuthModal 
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        initialView={authModalView}
-      />
     </nav>
   );
 };

@@ -72,6 +72,44 @@
   font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInputContainer .input {
+  padding-right: 3rem;
+  width: 100%;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms;
+  border-radius: 0.25rem;
+}
+
+.passwordToggle:hover {
+  background: rgba(45, 85, 150, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.passwordToggle svg {
+  width: 18px;
+  height: 18px;
+}
+
 .input:focus {
   outline: none;
   border-color: rgb(45, 85, 150);

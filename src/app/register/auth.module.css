@@ -1,0 +1,128 @@
+/* Auth Page Styles */
+.authPage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(10, 20, 40, 0.95) 0%, rgba(15, 25, 45, 0.98) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+.authPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(45, 85, 150, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(45, 85, 150, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(45, 85, 150, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.authContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+}
+
+.backButton {
+  margin-bottom: 2rem;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(45, 85, 150, 0.1);
+  border: 1px solid rgba(45, 85, 150, 0.3);
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms;
+  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.backBtn:hover {
+  background: rgba(45, 85, 150, 0.2);
+  border-color: rgba(45, 85, 150, 0.5);
+  color: white;
+  transform: translateX(-2px);
+}
+
+.backBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.formContainer {
+  background: rgba(15, 25, 45, 0.98);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(45, 85, 150, 0.2);
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Animation */
+.authPage {
+  animation: pageSlideIn 400ms ease-out;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .authPage {
+    padding: 1rem 0.5rem;
+  }
+  
+  .backButton {
+    margin-bottom: 1.5rem;
+  }
+  
+  .backBtn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .formContainer {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .authPage {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .backBtn svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .formContainer {
+    border-radius: 8px;
+  }
+}
