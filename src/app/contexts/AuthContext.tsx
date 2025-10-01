@@ -69,25 +69,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
-      console.log(`Making API call to: ${API_BASE_URL}${endpoint}`);
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
         headers,
       });
 
-      console.log(`Response status: ${response.status}`);
-
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ 
           message: `HTTP error! status: ${response.status}` 
         }));
-        console.error('API Error:', errorData);
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       return response.json();
     } catch (error) {
-      console.error('Network/API Error:', error);
       if (error instanceof TypeError && error.message.includes('fetch')) {
         throw new Error('Unable to connect to server. Please check if the server is running on http://localhost:3000');
       }
@@ -171,15 +166,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const refreshProfile = async (): Promise<void> => {
     try {
       const token = getToken();
+      console.log('🔍 RefreshProfile: Token exists:', !!token);
       if (!token) {
+        console.log('🚫 RefreshProfile: No token found');
         setUser(null);
         return;
       }
 
+      console.log('📡 RefreshProfile: Calling /users/me...');
       const userData = await apiCall('/users/me');
+      console.log('✅ RefreshProfile: User data received:', userData);
       setUser(userData);
+      console.log('💾 RefreshProfile: User state updated');
     } catch (error) {
-      console.error('Failed to fetch user profile:', error);
+      console.error('❌ RefreshProfile: Failed to fetch user profile:', error);
       // Token might be invalid, remove it
       removeToken();
       setUser(null);

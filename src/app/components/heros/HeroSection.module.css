@@ -65,7 +65,7 @@
   color: white;
   margin-bottom: 1rem;
   line-height: 1.2;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-playfair-display), serif;
   text-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
 }
 
@@ -92,7 +92,7 @@
   border: none;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   box-shadow: 0 4px 15px rgba(45, 85, 150, 0.4);
 }
 
@@ -111,7 +111,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .secondaryButton:hover {
@@ -243,7 +243,7 @@
   color: rgba(255, 255, 255, 0.9);
   padding: 0 1rem;
   text-shadow: 0 2px 4px rgba(5, 10, 20, 0.8);
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .wordRow2 {

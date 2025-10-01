@@ -122,7 +122,14 @@ const NavBar = () => {
                       </div>
                     </div>
                     <div className={styles.dropdownDivider}></div>
-                    <a href="/dashboard" className={styles.dropdownItem}>
+                    <button 
+                      onClick={() => {
+                        const dashboardPath = user?.role === 'admin' ? '/dashboard/admin' : '/dashboard/organizer';
+                        router.push(dashboardPath);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
                       <svg 
                         className={styles.dropdownIcon}
                         fill="none" 
@@ -137,8 +144,14 @@ const NavBar = () => {
                         />
                       </svg>
                       Dashboard
-                    </a>
-                    <a href="/my-events" className={styles.dropdownItem}>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        router.push('/my-events');
+                        setIsDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
                       <svg 
                         className={styles.dropdownIcon}
                         fill="none" 
@@ -153,8 +166,14 @@ const NavBar = () => {
                         />
                       </svg>
                       My Events
-                    </a>
-                    <a href="/my-tickets" className={styles.dropdownItem}>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        router.push('/my-tickets');
+                        setIsDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
                       <svg 
                         className={styles.dropdownIcon}
                         fill="none" 
@@ -169,8 +188,14 @@ const NavBar = () => {
                         />
                       </svg>
                       My Tickets
-                    </a>
-                    <a href="/profile" className={styles.dropdownItem}>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        router.push('/profile');
+                        setIsDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
                       <svg 
                         className={styles.dropdownIcon}
                         fill="none" 
@@ -185,7 +210,7 @@ const NavBar = () => {
                         />
                       </svg>
                       Profile
-                    </a>
+                    </button>
                     <div className={styles.dropdownDivider}></div>
                     <button onClick={handleLogout} className={styles.dropdownItem}>
                       <svg 

@@ -1,0 +1,529 @@
+/* Event Detail Page Styling */
+.main {
+  min-height: calc(100vh - 80px);
+  padding: 20px 0 40px;
+}
+
+.navigation {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #374151;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Event Header */
+.eventHeader {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Poster Section */
+.posterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mainPoster {
+  width: 100%;
+  aspect-ratio: 2/3;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.posterImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholderPoster {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+.placeholderIcon {
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.placeholderText {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Image Gallery */
+.imageGallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px;
+}
+
+.galleryImage {
+  flex-shrink: 0;
+  width: 60px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  padding: 0;
+}
+
+.galleryImage:hover {
+  border-color: #667eea;
+  transform: scale(1.05);
+}
+
+.galleryImage.galleryImageActive {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.galleryImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Event Details */
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.eventBadge {
+  display: flex;
+  align-items: center;
+}
+
+.statusBadge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.eventTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.2;
+  margin: 0;
+  font-family: var(--font-playfair-display), serif;
+}
+
+.organizer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.organizerLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.organizerName {
+  font-size: 1.125rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+/* Event Meta */
+.eventMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.metaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.metaIcon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.metaContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.metaLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metaValue {
+  font-size: 1.125rem;
+  color: #1f2937;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.metaSubtext {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.endDate {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.ticketPrice {
+  font-size: 1.5rem !important;
+  color: #10b981 !important;
+  font-weight: 700 !important;
+}
+
+/* Ticket Types Section */
+.ticketTypesSection {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ticketTypesContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.ticketTypesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticketTypeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(45, 85, 150, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(45, 85, 150, 0.1);
+}
+
+.ticketTypeName {
+  font-size: 1rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.ticketTypePrice {
+  font-size: 1.125rem;
+  color: rgb(45, 85, 150);
+  font-weight: 700;
+}
+
+/* Purchase Section */
+.purchaseSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.purchaseButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.purchaseButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.eventWebsite {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.eventWebsite:hover {
+  color: #764ba2;
+}
+
+/* Description Section */
+.descriptionSection {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.description p {
+  margin: 0 0 16px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Loading and Error States */
+.loadingContainer,
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 24px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.errorText {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 32px;
+}
+
+.backButton {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.backButton:hover {
+  background: #5a67d8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .eventHeader {
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+    padding: 30px;
+  }
+  
+  .eventTitle {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .eventHeader {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 24px;
+  }
+  
+  .posterSection {
+    order: -1;
+  }
+  
+  .mainPoster {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  
+  .eventTitle {
+    font-size: 2rem;
+  }
+  
+  .descriptionSection {
+    padding: 30px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 12px 0 24px;
+  }
+  
+  .eventHeader {
+    padding: 20px;
+  }
+  
+  .eventTitle {
+    font-size: 1.75rem;
+  }
+  
+  .descriptionSection {
+    padding: 24px;
+  }
+  
+  .modalContent {
+    margin: 12px;
+    max-width: calc(100vw - 24px);
+  }
+}

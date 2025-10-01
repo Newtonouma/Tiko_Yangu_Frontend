@@ -27,7 +27,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .backButton {
@@ -47,7 +47,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }

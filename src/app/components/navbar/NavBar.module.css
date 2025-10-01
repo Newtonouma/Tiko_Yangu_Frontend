@@ -38,7 +38,7 @@
   font-size: 1.75rem;
   font-weight: 800;
   color: white;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-playfair-display), serif;
   letter-spacing: -0.02em;
   transition: color 200ms;
 }
@@ -102,7 +102,7 @@
   transition: all 200ms;
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .authButton:hover {
@@ -138,14 +138,14 @@
   justify-content: center;
   font-size: 0.875rem;
   font-weight: 600;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .userName {
   font-size: 0.9rem;
   font-weight: 500;
   color: white;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* Login/Register Buttons for Non-Authenticated Users */
@@ -159,7 +159,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .loginButton:hover {
@@ -178,7 +178,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .registerButton:hover {
@@ -199,14 +199,14 @@
   justify-content: center;
   font-size: 0.875rem;
   font-weight: 600;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .userName {
   font-size: 0.9rem;
   font-weight: 500;
   color: white;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* Auth Buttons for Non-Authenticated Users */
@@ -218,7 +218,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .loginButton {
@@ -285,7 +285,7 @@
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .dropdownItem:hover {
@@ -320,7 +320,7 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: 600;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .userInfoText {
@@ -332,13 +332,13 @@
   font-weight: 600;
   color: white;
   margin-bottom: 0.25rem;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .userInfoEmail {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .dropdownDivider {

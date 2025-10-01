@@ -1,0 +1,292 @@
+/* Footer Styling */
+.footer {
+  background: #1a1a1a;
+  color: #ffffff;
+  padding: 60px 0 20px;
+  margin-top: 80px;
+}
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Desktop Layout */
+.desktopLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.mobileLayout {
+  display: none;
+}
+
+/* Company Section */
+.companySection {
+  max-width: 300px;
+}
+
+.logo h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(45, 85, 150);
+  margin: 0 0 16px 0;
+  font-family: var(--font-playfair-display), serif;
+}
+
+.description {
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  font-size: 0.95rem;
+}
+
+/* Social Links */
+.socialLinks {
+  display: flex;
+  gap: 16px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(45, 85, 150, 0.1);
+  border-radius: 50%;
+  color: rgb(45, 85, 150);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.socialLink:hover {
+  background: rgb(45, 85, 150);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Link Sections */
+.linkSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  font-family: var(--font-playfair-display), serif;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footerLink {
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  line-height: 1.4;
+}
+
+.footerLink:hover {
+  color: rgb(45, 85, 150);
+}
+
+/* Accordion Styles (Hidden on Desktop) */
+.accordionSection {
+  border-bottom: 1px solid #333;
+}
+
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.accordionHeader:hover {
+  color: rgb(45, 85, 150);
+}
+
+.accordionHeaderOpen {
+  color: rgb(45, 85, 150);
+}
+
+.accordionIcon {
+  transition: transform 0.3s ease;
+  color: #b0b0b0;
+}
+
+.accordionIconOpen {
+  transform: rotate(180deg);
+  color: rgb(45, 85, 150);
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordionContentOpen {
+  max-height: 300px;
+  transition: max-height 0.3s ease-in;
+}
+
+.accordionContent .linkList {
+  padding: 0 0 20px 0;
+  gap: 16px;
+}
+
+.accordionContent .footerLink {
+  font-size: 0.95rem;
+  display: block;
+  padding: 4px 0;
+}
+
+/* Bottom Bar */
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid #333;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.copyright {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.copyright p {
+  margin: 0;
+}
+
+.bottomLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.bottomLink {
+  color: #888;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.bottomLink:hover {
+  color: rgb(45, 85, 150);
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 1024px) {
+  .desktopLayout {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 30px;
+  }
+  
+  .linkSection:nth-child(5) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  .linkSection:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 20px;
+    margin-top: 60px;
+  }
+  
+  .desktopLayout {
+    display: none;
+  }
+  
+  .mobileLayout {
+    display: block;
+  }
+  
+  .mobileLayout .companySection {
+    max-width: none;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .mobileLayout .socialLinks {
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .bottomBar {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .bottomLinks {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .footer {
+    padding: 30px 0 15px;
+  }
+  
+  .logo h3 {
+    font-size: 1.75rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+  }
+  
+  .accordionHeader {
+    font-size: 1rem;
+    padding: 16px 0;
+  }
+  
+  .socialLink {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .socialLinks {
+    gap: 12px;
+  }
+}

@@ -2,7 +2,7 @@
 .loginForm {
   width: 100%;
   max-width: 400px;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .header {
@@ -15,7 +15,7 @@
   font-weight: 700;
   color: white;
   margin-bottom: 0.5rem;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-playfair-display), serif;
 }
 
 .subtitle {
@@ -58,7 +58,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: white;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .input {
@@ -69,7 +69,7 @@
   color: white;
   font-size: 1rem;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .passwordInputContainer {
@@ -135,7 +135,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   margin-top: 0.5rem;
 }
 
@@ -173,7 +173,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   text-decoration: underline;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   transition: color 200ms;
 }
 
@@ -215,7 +215,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 200ms;
-  font-family: 'Inter Display', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .switchButton:hover {

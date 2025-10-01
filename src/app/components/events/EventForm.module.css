@@ -1,0 +1,375 @@
+.eventForm {
+  max-width: 1000px;
+  width: 90vw;
+  margin: 0 auto;
+  background: rgba(17, 24, 39, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #9ca3af;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #f3f4f6;
+  font-size: 0.9rem;
+}
+
+.input,
+.textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  background: rgba(31, 41, 55, 0.7);
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: rgba(31, 41, 55, 0.9);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #6b7280;
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.section {
+  background: rgba(31, 41, 55, 0.3);
+  border: 1px solid rgba(75, 85, 99, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileInputLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  background: rgba(31, 41, 55, 0.7);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.fileInputLabel:hover {
+  background: rgba(31, 41, 55, 0.9);
+  border-color: #3b82f6;
+}
+
+.filePreview {
+  padding: 0.75rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(59, 130, 246, 0.2);
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.fileName {
+  color: #3b82f6;
+  font-size: 0.875rem;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.removeFileButton {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.removeFileButton:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.removeFileButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.existingImagesSection {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(31, 41, 55, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.existingImagesTitle,
+.newImagesTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  margin: 0 0 0.75rem 0;
+}
+
+.existingImagesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.existingImageItem {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(75, 85, 99, 0.3);
+}
+
+.existingImagePreview {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.existingImageItem .removeFileButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(239, 68, 68, 0.9);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.cancelButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  color: #ffffff;
+  border-color: #6b7280;
+  background: rgba(75, 85, 99, 0.2);
+}
+
+.submitButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .eventForm {
+    width: 95vw;
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .eventForm {
+    padding: 1.5rem;
+    margin: 0.5rem;
+    width: calc(100vw - 1rem);
+    max-width: none;
+  }
+  
+  .section {
+    padding: 1rem;
+  }
+  
+  .row {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    flex-direction: column-reverse;
+  }
+  
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .filePreview {
+    flex-direction: column;
+  }
+  
+  .ticketPricesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Ticket Pricing Section */
+.ticketPricesSection {
+  padding: 1.5rem;
+  background: rgba(31, 41, 55, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.subsectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.subsectionDescription {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.5;
+}
+
+.ticketPricesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}

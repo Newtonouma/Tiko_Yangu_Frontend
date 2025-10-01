@@ -1,0 +1,220 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { eventService, Event, generateEventSlug } from '../services/eventService';
+import NavBar from '../components/navbar/NavBar';
+import styles from './EventsPage.module.css';
+
+const EventsPage: React.FC = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<'all' | 'upcoming' | 'today'>('all');
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        setIsLoading(true);
+        const allEvents = await eventService.getAllEvents();
+        // Filter only active events and sort by start date
+        const activeEvents = allEvents
+          .filter((event: Event) => event.status === 'active')
+          .sort((a: Event, b: Event) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+        setEvents(activeEvents);
+      } catch (error) {
+        console.error('Failed to load events:', error);
+        setError('Failed to load events');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
+
+  const getFilteredEvents = () => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    switch (filter) {
+      case 'today':
+        return events.filter(event => {
+          const eventDate = new Date(event.startDate);
+          return eventDate >= today && eventDate < tomorrow;
+        });
+      case 'upcoming':
+        return events.filter(event => {
+          const eventDate = new Date(event.startDate);
+          return eventDate >= today;
+        });
+      case 'all':
+      default:
+        return events;
+    }
+  };
+
+  const filteredEvents = getFilteredEvents();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <NavBar />
+        <div className={styles.loadingContainer}>
+          <div className={styles.spinner}></div>
+          <p>Loading events...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <NavBar />
+      
+      <main className={styles.main}>
+        <div className={styles.header}>
+          <div className={styles.container}>
+            <div className={styles.headerContent}>
+              <Link href="/" className={styles.backLink}>
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Home
+              </Link>
+              
+              <h1 className={styles.pageTitle}>All Events</h1>
+              <p className={styles.pageSubtitle}>
+                Discover all the exciting events happening around you
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.container}>
+          {/* Filter Tabs */}
+          <div className={styles.filterTabs}>
+            <button
+              onClick={() => setFilter('all')}
+              className={`${styles.filterTab} ${filter === 'all' ? styles.filterTabActive : ''}`}
+            >
+              All Events ({events.length})
+            </button>
+            <button
+              onClick={() => setFilter('upcoming')}
+              className={`${styles.filterTab} ${filter === 'upcoming' ? styles.filterTabActive : ''}`}
+            >
+              Upcoming ({events.filter(e => new Date(e.startDate) >= new Date()).length})
+            </button>
+            <button
+              onClick={() => setFilter('today')}
+              className={`${styles.filterTab} ${filter === 'today' ? styles.filterTabActive : ''}`}
+            >
+              Today ({events.filter(e => {
+                const today = new Date();
+                const eventDate = new Date(e.startDate);
+                return eventDate.toDateString() === today.toDateString();
+              }).length})
+            </button>
+          </div>
+
+          {error ? (
+            <div className={styles.errorContainer}>
+              <p className={styles.errorText}>{error}</p>
+            </div>
+          ) : filteredEvents.length === 0 ? (
+            <div className={styles.emptyContainer}>
+              <div className={styles.emptyIcon}>
+                <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className={styles.emptyTitle}>No events found</h3>
+              <p className={styles.emptyText}>
+                {filter === 'today' 
+                  ? "No events are scheduled for today." 
+                  : filter === 'upcoming' 
+                  ? "No upcoming events at the moment." 
+                  : "No events are currently available."}
+              </p>
+            </div>
+          ) : (
+            <div className={styles.eventsGrid}>
+              {filteredEvents.map((event) => (
+                <Link 
+                  key={event.id} 
+                  href={`/events/${generateEventSlug(event.title, event.id)}`}
+                  className={styles.eventCard}
+                >
+                  <div className={styles.posterContainer}>
+                    {event.images && event.images.length > 0 ? (
+                      <img 
+                        src={event.images[0]} 
+                        alt={event.title}
+                        className={styles.posterImage}
+                      />
+                    ) : (
+                      <div className={styles.placeholderPoster}>
+                        <div className={styles.placeholderIcon}>
+                          <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <p className={styles.placeholderText}>No Image</p>
+                      </div>
+                    )}
+                    
+                    <div className={styles.eventOverlay}>
+                      <div className={styles.eventInfo}>
+                        <h3 className={styles.eventTitle}>{event.title}</h3>
+                        <p className={styles.eventVenue}>{event.venue}</p>
+                        {(() => {
+                          // Use regularPrice or fallback to ticketPrice for backward compatibility
+                          const price = Math.floor(event.regularPrice || event.ticketPrice || 0);
+                          const priceString = price.toLocaleString();
+                          const isLongPrice = priceString.length > 5;
+                          const priceClass = priceString.length > 7 ? styles.eventPriceSmall : priceString.length > 5 ? styles.eventPriceMedium : '';
+                          
+                          return (
+                            <div className={`${styles.eventMeta} ${isLongPrice ? styles.eventMetaStacked : ''}`}>
+                              <div className={styles.eventDate}>
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>{new Date(event.startDate).toLocaleDateString()}</span>
+                              </div>
+                              <div className={`${styles.eventPrice} ${priceClass}`}>
+                                <span>KSH {priceString}</span>
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                      
+                      <div className={styles.hoverActions}>
+                        <button 
+                          className={styles.buyTicketButton}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.location.href = `/events/${generateEventSlug(event.title, event.id)}`;
+                          }}
+                        >
+                          Buy Tickets
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default EventsPage;
