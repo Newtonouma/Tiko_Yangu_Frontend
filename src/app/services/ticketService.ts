@@ -94,6 +94,11 @@ class TicketService {
       headers: this.getAuthHeaders(),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`❌ Error response for event ${eventId}:`, errorText);
+    }
+
     return this.handleResponse<Ticket[]>(response);
   }
 
@@ -109,23 +114,29 @@ class TicketService {
       });
 
       if (!eventsResponse.ok) {
-        console.error('Events API response:', eventsResponse.status, eventsResponse.statusText);
+        console.error('❌ Events API response:', eventsResponse.status, eventsResponse.statusText);
         throw new Error(`Failed to fetch events: ${eventsResponse.status} ${eventsResponse.statusText}`);
       }
 
       const events = await eventsResponse.json();
+      console.log('📅 Found events:', events.length);
       
       // Get tickets for all events
-      const ticketPromises = events.map((event: any) => 
-        this.getTicketsForEvent(event.id).catch(() => []) // Return empty array if fails
-      );
+      const ticketPromises = events.map((event: any) => {
+        return this.getTicketsForEvent(event.id).catch((error) => {
+          console.error(`❌ Failed to get tickets for event ${event.id}:`, error);
+          return []; // Return empty array if fails
+        });
+      });
 
       const ticketArrays = await Promise.all(ticketPromises);
       
       // Flatten the arrays and return all tickets
-      return ticketArrays.flat();
+      const allTickets = ticketArrays.flat();
+      console.log('🎫 Total tickets found:', allTickets.length);
+      return allTickets;
     } catch (error) {
-      console.error('Error fetching my tickets:', error);
+      console.error('❌ Error fetching my tickets:', error);
       throw error;
     }
   }

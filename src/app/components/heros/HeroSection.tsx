@@ -111,10 +111,10 @@ export default function HeroSection() {
       {/* Content positioned at bottom left */}
       <div className={styles.content}>
         <div className={styles.contentContainer}>
-          <h1 className={styles.title}>
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             {heroSlides[currentSlide].title}
           </h1>
-          <p className={styles.description}>
+          <p className="text-lg font-medium text-gray-200 mb-6 leading-relaxed">
             {heroSlides[currentSlide].description}
           </p>
           
@@ -161,7 +161,7 @@ export default function HeroSection() {
               {[...row1Words, ...row1Words].map((word, index) => (
                 <span
                   key={`row1-${index}`}
-                  className={styles.word}
+                  className="text-sm font-medium text-white/70 px-4 py-2 bg-white/10 rounded-full mx-2"
                 >
                   {word}
                 </span>
@@ -176,7 +176,7 @@ export default function HeroSection() {
               {[...row2Words, ...row2Words].map((word, index) => (
                 <span
                   key={`row2-${index}`}
-                  className={`${styles.word} ${styles.wordRow2}`}
+                  className="text-sm font-medium text-white/70 px-4 py-2 bg-white/10 rounded-full mx-2"
                 >
                   {word}
                 </span>

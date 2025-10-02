@@ -225,28 +225,40 @@ class EventService {
    * Update an existing event
    */
   async updateEvent(id: number, eventData: CreateEventData): Promise<Event> {
+    console.log('🔄 EventService.updateEvent called with:', { id, eventData });
+    
     const formData = new FormData();
     
     // Add text fields
     Object.entries(eventData).forEach(([key, value]) => {
       if (key !== 'images' && value !== undefined && value !== '') {
+        console.log(`📝 Adding form field: ${key} = ${value}`);
         formData.append(key, value.toString());
       }
     });
 
     // Add image files
     if (eventData.images && eventData.images.length > 0) {
-      eventData.images.forEach((file) => {
+      console.log(`🖼️ Adding ${eventData.images.length} image files`);
+      eventData.images.forEach((file, index) => {
+        console.log(`📎 Image ${index}: ${file.name} (${file.size} bytes)`);
         formData.append('images', file);
       });
+    } else {
+      console.log('📷 No images to upload');
     }
+
+    const headers = this.getAuthHeaders();
+    console.log('🔐 Request headers:', headers);
+    console.log(`📤 Making PUT request to: ${API_BASE_URL}/events/${id}`);
 
     const response = await fetch(`${API_BASE_URL}/events/${id}`, {
       method: 'PUT',
-      headers: this.getAuthHeaders(),
+      headers,
       body: formData,
     });
 
+    console.log('📥 Raw response received:', response);
     return this.handleResponse<Event>(response);
   }
 

@@ -11,7 +11,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { eventService, Event as EventType, CreateEventData } from '../../services/eventService';
 import { ticketService, Ticket } from '../../services/ticketService';
 import EventForm, { EventFormData } from '../../components/events/EventForm';
-import EventDetailView from '../../components/events/EventDetailView';
+// import EventDetailView from '../../components/events/EventDetailView';
 import styles from './OrganizerDashboard.module.css';
 
 // Icons
@@ -277,6 +277,8 @@ function OrganizerDashboard() {
     
     try {
       setFormLoading(true);
+      console.log('🔄 Updating event:', selectedEvent.id, eventData);
+      
       // Convert EventFormData to CreateEventData by ensuring images are File[] or undefined
       const updateEventData: CreateEventData = {
         ...eventData,
@@ -284,14 +286,24 @@ function OrganizerDashboard() {
           ? eventData.images as File[] 
           : undefined
       };
-      await eventService.updateEvent(selectedEvent.id, updateEventData);
+      
+      console.log('📤 Sending update data:', updateEventData);
+      const result = await eventService.updateEvent(selectedEvent.id, updateEventData);
+      console.log('✅ Update successful:', result);
+      
       await loadEvents(); // Refresh events list
       setShowEditForm(false);
       setSelectedEvent(null);
       alert('Event updated successfully!');
     } catch (error) {
-      console.error('Failed to update event:', error);
-      alert('Failed to update event. Please try again.');
+      console.error('❌ Failed to update event - Full error details:', {
+        error,
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        eventId: selectedEvent.id,
+        eventData
+      });
+      alert(`Failed to update event: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setFormLoading(false);
     }
@@ -475,7 +487,7 @@ function OrganizerDashboard() {
   ];
 
   const ticketColumns = [
-    { key: 'event' as keyof Ticket, header: 'Event', render: (ticket: Ticket) => ticket.event.title },
+    { key: 'event' as keyof Ticket, header: 'Event', render: (ticket: Ticket) => ticket.event?.title || 'Unknown Event' },
     { key: 'buyerName' as keyof Ticket, header: 'Buyer Name' },
     { key: 'buyerEmail' as keyof Ticket, header: 'Email' },
     { key: 'ticketType' as keyof Ticket, header: 'Type' },
@@ -770,32 +782,23 @@ function OrganizerDashboard() {
 
     {/* Event Detail Modal */}
     {showEventDetail && selectedEvent && (
-      <EventDetailView
-        event={selectedEvent}
-        onEdit={() => {
-          if (isEventUpcoming(selectedEvent)) {
-            setShowEventDetail(false);
-            setShowEditForm(true);
-          } else {
-            alert('Cannot edit past events. Only upcoming events can be modified.');
-          }
-        }}
-        onArchive={() => {
-          if (selectedEvent.status === 'active') {
-            handleArchiveEvent(selectedEvent.id);
-          } else if (selectedEvent.status === 'archived') {
-            handleUnarchiveEvent(selectedEvent.id);
-          }
-          setShowEventDetail(false);
-          setSelectedEvent(null);
-        }}
-
-        onClose={() => {
-          setShowEventDetail(false);
-          setSelectedEvent(null);
-        }}
-        canEdit={isEventUpcoming(selectedEvent)}
-      />
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white p-6 rounded-lg max-w-2xl w-full mx-4">
+          <h2 className="text-xl font-bold mb-4">{selectedEvent.title}</h2>
+          <p className="text-gray-600 mb-4">{selectedEvent.description}</p>
+          <div className="flex justify-end space-x-2">
+            <button
+              onClick={() => {
+                setShowEventDetail(false);
+                setSelectedEvent(null);
+              }}
+              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     )}
   </>);
 }

@@ -1,0 +1,178 @@
+/* Statistics Section Styles */
+
+/* Main container animations */
+#statistics-section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Statistic card hover animations */
+.statistic-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.statistic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.statistic-card:hover::before {
+  left: 100%;
+}
+
+.statistic-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Counter animation */
+.counter-value {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .statistic-card {
+    padding: 1rem;
+  }
+  
+  .counter-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #statistics-section {
+    padding: 3rem 0;
+  }
+}
+
+/* Icon container animations */
+.statistic-card .inline-flex {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statistic-card:hover .inline-flex {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Staggered animation for cards */
+.statistic-card:nth-child(1) { animation-delay: 0.1s; }
+.statistic-card:nth-child(2) { animation-delay: 0.2s; }
+.statistic-card:nth-child(3) { animation-delay: 0.3s; }
+.statistic-card:nth-child(4) { animation-delay: 0.4s; }
+.statistic-card:nth-child(5) { animation-delay: 0.5s; }
+.statistic-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Card entrance animation */
+.statistic-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardSlideUp 0.6s ease-out forwards;
+}
+
+@keyframes cardSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for counters when they reach final value */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.counter-value.completed {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* Grid responsive improvements */
+@media (min-width: 1024px) {
+  .statistic-card:nth-child(1) { border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; }
+  .statistic-card:nth-child(6) { border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; }
+}
+
+/* Smooth transitions for all interactive elements */
+.statistic-card * {
+  transition: inherit;
+}
+
+/* Focus states for accessibility */
+.statistic-card:focus-within {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.statistic-card.loading .counter-value {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+  height: 2rem;
+  width: 4rem;
+  margin: 0 auto;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Enhanced shadow for elevated cards */
+.statistic-card:hover {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth color transitions */
+.statistic-card .inline-flex {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 480px) {
+  .statistic-card {
+    padding: 1rem 0.75rem;
+  }
+  
+  .statistic-card .inline-flex {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .statistic-card .inline-flex svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
