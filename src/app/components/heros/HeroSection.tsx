@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import styles from './HeroSection.module.css'
 
@@ -53,6 +54,7 @@ export default function HeroSection() {
   const [mounted, setMounted] = useState(false)
   const [isDark, setIsDark] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const router = useRouter()
 
   // Auto-slide functionality
   useEffect(() => {
@@ -120,11 +122,17 @@ export default function HeroSection() {
           
           {/* Call to action buttons */}
           <div className={styles.buttonContainer}>
-            <button className={styles.primaryButton}>
+            <button 
+              className={styles.primaryButton}
+              onClick={() => router.push('/events')}
+            >
               Explore Events
             </button>
-            <button className={styles.secondaryButton}>
-              Learn More
+            <button 
+              className={styles.secondaryButton}
+              onClick={() => router.push('/login')}
+            >
+              Create Event
             </button>
           </div>
         </div>

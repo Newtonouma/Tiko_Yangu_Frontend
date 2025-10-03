@@ -191,6 +191,19 @@ const Footer = () => {
           <div className={styles.copyright}>
             <p>&copy; 2025 Tikoyangu. All rights reserved.</p>
           </div>
+          <div className={styles.developerCredits}>
+            <p className={styles.creditsText}>
+              Built and maintained by{' '}
+              <a 
+                href="https://gravixelsolutions.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.creditsLink}
+              >
+                Gravixel Solutions
+              </a>
+            </p>
+          </div>
           <div className={styles.bottomLinks}>
             <a href="/privacy" className={styles.bottomLink}>Privacy</a>
             <a href="/terms" className={styles.bottomLink}>Terms</a>

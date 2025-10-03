@@ -1,13 +1,14 @@
 /* Event Detail Page Styling */
 .main {
   min-height: calc(100vh - 80px);
-  padding: 20px 0 40px;
+  padding: 100px 0 48px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .navigation {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px 20px;
+  padding: 0 24px 24px;
 }
 
 .backLink {
@@ -17,30 +18,533 @@
   color: #6b7280;
   text-decoration: none;
   font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
 .backLink:hover {
   color: #374151;
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 /* Event Header */
 .eventHeader {
+  background: transparent;
+  padding: 32px 0;
+  margin-bottom: 32px;
+}
+
+.eventBadge {
+  margin-bottom: 16px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);
+}
+
+.eventTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.organizer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.organizerLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.organizerName {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.eventBasicInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.infoItem svg {
+  color: #6366f1;
+  flex-shrink: 0;
+}
+
+.endDate {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* Main Two-Column Layout */
+.mainContent {
   display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
-  background: white;
-  border-radius: 20px;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+/* Left Column */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 24px;
+}
+
+/* Right Column */
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Image Section */
+.imageSection {
+  position: relative;
+  min-height: 450px;
+  border-radius: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Carousel Container */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* Navigation Arrows */
+.navArrow {
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navArrow:hover {
+  background: transparent;
+  transform: scale(1.2);
+}
+
+/* Navigation arrows are now inline with thumbnails - no special positioning needed */
+
+.navArrow svg {
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  width: 32px;
+  height: 32px;
+}
+
+/* Main Image Display */
+.mainImageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  position: relative;
+}
+
+.mainImage {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Single Image Display */
+.singleImageContainer {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.singleImage {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  background: white;
+}
+
+/* Thumbnail Carousel */
+.thumbnailCarousel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  overflow-x: auto;
+  background: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.thumbnailCarousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnailCarousel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.thumbnailCarousel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+}
+
+.thumbnailCarousel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.thumbnailImage {
+  flex-shrink: 0;
+  width: 90px;
+  height: 68px;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+  background: transparent;
+  padding: 0;
+}
+
+.thumbnailImage:hover {
+  opacity: 1;
+  transform: none;
+}
+
+.thumbnailImageActive {
+  opacity: 1;
+  border-bottom: 3px solid #6366f1;
+}
+
+.thumbnailImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image Counter */
+.imageCounter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* Placeholder Image */
+.placeholderImage {
+  width: 100%;
+  height: 450px;
+  background: #f3f4f6;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+.placeholderIcon {
+  margin-bottom: 12px;
+}
+
+.placeholderText {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* About Section */
+.aboutSection {
+  background: transparent;
+  padding: 32px 0;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 20px 0;
+  background: linear-gradient(135deg, #1f2937 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Event Info in About Section */
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding: 0;
+  background: transparent;
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.infoItem svg {
+  color: #6366f1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6366f1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.infoValue {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.endDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.descriptionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 16px 0;
+}
+
+.aboutContent {
+  color: #374151;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.aboutContent p {
+  margin: 0;
+}
+
+/* Tickets Section */
+.ticketsSection {
+  background: transparent;
+  padding: 32px 0;
+}
+
+.ticketsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticketItem {
+  padding: 16px 0;
+  background: transparent;
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.ticketItem:hover {
+  background: transparent;
+  border-bottom-color: #6366f1;
+}
+
+.ticketInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticketName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ticketPrice {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.ticketUnavailable {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Payment Section */
+.paymentSection {
+  background: transparent;
+  padding: 24px 0;
+}
+
+.paymentMethods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.paymentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(102, 126, 234, 0.3);
+}
+
+.paymentButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px 0 rgba(102, 126, 234, 0.4);
+}
+
+.paymentIcon {
+  font-size: 1rem;
+}
+
+.eventWebsite {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.eventWebsite:hover {
+  color: #4f46e5;
+}
+
+/* Related Section */
+.relatedSection {
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.relatedEvents {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.comingSoon {
+  color: #6b7280;
+  font-style: italic;
+  margin: 0;
 }
 
 /* Poster Section */
@@ -459,71 +963,464 @@
   background: #5a67d8;
 }
 
-/* Responsive Design */
+/* Responsive Design - Mobile First Approach */
+
+/* Tablet Styles (iPad, Android tablets) */
 @media (max-width: 1024px) {
-  .eventHeader {
-    grid-template-columns: 350px 1fr;
-    gap: 40px;
-    padding: 30px;
+  .container {
+    padding: 0 20px;
+    max-width: 100%;
+  }
+  
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .rightColumn {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+  }
+  
+  .leftColumn {
+    padding: 20px;
+    margin-bottom: 0;
   }
   
   .eventTitle {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+  
+  .imageSection {
+    min-height: 400px;
+  }
+  
+  .mainImageContainer {
+    padding: 16px;
+  }
+  
+  .thumbnailCarousel {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .thumbnailImage {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .navArrow {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .navArrow svg {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .paymentMethods {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .paymentButton {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .eventInfo {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .infoItem {
+    gap: 12px;
   }
 }
 
+/* Large Phone Styles (iPhone Plus, large Android phones) */
 @media (max-width: 768px) {
-  .eventHeader {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 24px;
-  }
-  
-  .posterSection {
-    order: -1;
-  }
-  
-  .mainPoster {
-    max-width: 350px;
-    margin: 0 auto;
-  }
-  
-  .eventTitle {
-    font-size: 2rem;
-  }
-  
-  .descriptionSection {
-    padding: 30px;
-  }
-  
-  .sectionTitle {
-    font-size: 1.5rem;
-  }
-  
   .container {
     padding: 0 16px;
   }
-}
-
-@media (max-width: 480px) {
-  .main {
-    padding: 12px 0 24px;
+  
+  .navigation {
+    padding: 16px;
+  }
+  
+  .rightColumn {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  .backLink {
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
   
   .eventHeader {
-    padding: 20px;
+    padding: 24px 0;
+    text-align: center;
   }
   
   .eventTitle {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
+    margin-bottom: 12px;
   }
   
-  .descriptionSection {
-    padding: 24px;
+  .leftColumn {
+    padding: 16px;
+    gap: 24px;
   }
   
-  .modalContent {
-    margin: 12px;
-    max-width: calc(100vw - 24px);
+  .imageSection {
+    min-height: 300px;
+  }
+  
+  .mainImageContainer {
+    padding: 12px;
+  }
+  
+  .thumbnailCarousel {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .thumbnailImage {
+    width: 70px;
+    height: 52px;
+  }
+  
+  .navArrow {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .navArrow svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .eventInfo {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .infoItem {
+    gap: 10px;
+  }
+  
+  .infoItem svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .infoLabel {
+    font-size: 0.8rem;
+  }
+  
+  .infoValue {
+    font-size: 0.9rem;
+  }
+  
+  .descriptionTitle {
+    font-size: 1.1rem;
+  }
+  
+  .aboutContent {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .sectionTitle {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+  
+  .ticketsSection,
+  .paymentSection {
+    padding: 24px 0;
+  }
+  
+  .ticketItem {
+    padding: 12px 0;
+  }
+  
+  .ticketName {
+    font-size: 0.9rem;
+  }
+  
+  .ticketPrice {
+    font-size: 1rem;
+  }
+  
+  .ticketUnavailable {
+    font-size: 0.8rem;
+  }
+  
+  .paymentMethods {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .paymentButton {
+    padding: 10px 8px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+  
+  .paymentIcon {
+    font-size: 1rem;
+  }
+}
+
+/* Small Phone Styles (iPhone SE, small Android phones) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .navigation {
+    padding: 12px;
+  }
+  
+  .eventHeader {
+    padding: 20px 0;
+  }
+  
+  .eventTitle {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .leftColumn {
+    padding: 12px;
+    gap: 20px;
+  }
+  
+  .imageSection {
+    min-height: 250px;
+  }
+  
+  .mainImageContainer {
+    padding: 8px;
+  }
+  
+  .thumbnailCarousel {
+    padding: 8px;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .thumbnailImage {
+    width: 60px;
+    height: 45px;
+    flex-shrink: 0;
+  }
+  
+  .navArrow {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .navArrow svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .eventInfo {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .infoItem {
+    gap: 8px;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .infoItem svg {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+  
+  .infoText {
+    gap: 2px;
+  }
+  
+  .infoLabel {
+    font-size: 0.75rem;
+  }
+  
+  .infoValue {
+    font-size: 0.85rem;
+  }
+  
+  .descriptionTitle {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .aboutContent {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  
+  .sectionTitle {
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+  }
+  
+  .ticketsSection,
+  .paymentSection {
+    padding: 20px 0;
+  }
+  
+  .ticketItem {
+    padding: 10px 0;
+  }
+  
+  .ticketName {
+    font-size: 0.85rem;
+  }
+  
+  .ticketPrice {
+    font-size: 0.9rem;
+  }
+  
+  .ticketUnavailable {
+    font-size: 0.75rem;
+  }
+  
+  .paymentMethods {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .paymentButton {
+    padding: 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+  
+  .paymentIcon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra Small Phones (iPhone 5/SE, very small screens) */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 8px;
+  }
+  
+  .eventTitle {
+    font-size: 1.375rem;
+  }
+  
+  .leftColumn {
+    padding: 8px;
+  }
+  
+  .imageSection {
+    min-height: 220px;
+  }
+  
+  .thumbnailImage {
+    width: 50px;
+    height: 38px;
+  }
+  
+  .navArrow {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .paymentButton {
+    padding: 10px;
+    font-size: 0.75rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1rem;
+  }
+  
+  .aboutContent,
+  .ticketName,
+  .infoValue {
+    font-size: 0.8rem;
+  }
+}
+
+/* Collapsible Description Styles */
+.descriptionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandButton:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.descriptionContent {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.descriptionContent.collapsed {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+.descriptionContent.expanded {
+  max-height: 1000px;
+  opacity: 1;
+  margin-bottom: 16px;
+}
+
+/* Mobile-specific collapsible behavior */
+@media (max-width: 768px) {
+  .expandButton {
+    font-size: 1.1rem;
+    padding: 6px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+  
+  .descriptionHeader {
+    margin-bottom: 12px;
+  }
+  
+  .descriptionContent.expanded {
+    margin-bottom: 12px;
   }
 }
