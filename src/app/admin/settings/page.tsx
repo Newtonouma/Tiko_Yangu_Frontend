@@ -212,15 +212,13 @@ export default function SettingsPage() {
 
   const handleSettingUpdate = async (key: string, value: string) => {
     try {
-      await settingsAPI.update({ key, value });
-      
+      await settingsAPI.update(key, value);
       // Update local state
       setSettings(prevSettings =>
         prevSettings.map(setting =>
           setting.key === key ? { ...setting, value } : setting
         )
       );
-
       setSuccessMessage(`Setting "${key}" updated successfully`);
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {

@@ -667,7 +667,7 @@ export default function EventsPage() {
           await eventsAPI.approve(eventId);
           break;
         case 'reject':
-          await eventsAPI.reject(eventId);
+          await eventsAPI.reject(eventId, "");
           break;
         case 'view':
           await handleSelectEvent(eventId);

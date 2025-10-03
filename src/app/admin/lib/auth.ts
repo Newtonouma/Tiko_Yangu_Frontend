@@ -67,12 +67,9 @@ export function getAuthToken() {
   return null;
 }
 
-export function getAuthHeaders() {
+export function getAuthHeaders(): Record<string, string> {
   const token = getAuthToken();
-  return token ? {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  } : {
-    'Content-Type': 'application/json',
-  };
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  return headers;
 }

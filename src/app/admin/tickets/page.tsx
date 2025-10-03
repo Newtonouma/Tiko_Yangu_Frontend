@@ -202,8 +202,8 @@ function TicketTable({ tickets, onTicketAction }: {
                   <div className="flex items-center">
                     <UserIcon className="h-4 w-4 mr-2 text-gray-400" />
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{ticket.buyerName || 'N/A'}</div>
-                      <div className="text-sm text-gray-500">{ticket.buyerEmail || ''}</div>
+                      <div className="text-sm font-medium text-gray-900">{ticket.user?.name || 'N/A'}</div>
+                      <div className="text-sm text-gray-500">{ticket.user?.email || ''}</div>
                     </div>
                   </div>
                 </td>
@@ -236,7 +236,7 @@ function TicketTable({ tickets, onTicketAction }: {
                     >
                       <EyeIcon className="h-4 w-4" />
                     </button>
-                    {ticket.refundReason && ticket.status === 'valid' && (
+                    {ticket.refundReason && ticket.status === 'active' && (
                       <>
                         <button
                           onClick={() => onTicketAction('approve-refund', ticket.id)}
@@ -308,10 +308,10 @@ export default function TicketsPage() {
     try {
       switch (action) {
         case 'approve-refund':
-          await ticketsAPI.approveRefund(ticketId);
+          await ticketsAPI.refund(ticketId, 'approved');
           break;
         case 'reject-refund':
-          await ticketsAPI.rejectRefund(ticketId);
+          await ticketsAPI.refund(ticketId, 'rejected');
           break;
         case 'download':
           // TODO: Implement ticket download
@@ -333,8 +333,8 @@ export default function TicketsPage() {
     const matchesSearch = 
       ticket.id.toString().includes(searchTerm) ||
       (ticket.event?.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (ticket.buyerName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (ticket.buyerEmail || '').toLowerCase().includes(searchTerm.toLowerCase());
+  (ticket.user?.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+  (ticket.user?.email || '').toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesStatus = statusFilter === 'all' || ticket.status === statusFilter;
     

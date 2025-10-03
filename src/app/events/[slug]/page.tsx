@@ -138,7 +138,7 @@ const EventDetailPage: React.FC = () => {
                       <div className={styles.thumbnailCarousel}>
                         <button 
                           className={`${styles.navArrow} ${styles.navArrowLeft}`}
-                          onClick={() => setSelectedImageIndex(selectedImageIndex > 0 ? selectedImageIndex - 1 : event.images.length - 1)}
+                          onClick={() => setSelectedImageIndex(selectedImageIndex > 0 ? selectedImageIndex - 1 : (event.images?.length ?? 1) - 1)}
                           aria-label="Previous image"
                         >
                           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@ const EventDetailPage: React.FC = () => {
                         
                         <button 
                           className={`${styles.navArrow} ${styles.navArrowRight}`}
-                          onClick={() => setSelectedImageIndex(selectedImageIndex < event.images.length - 1 ? selectedImageIndex + 1 : 0)}
+                          onClick={() => setSelectedImageIndex(selectedImageIndex < (event.images?.length ?? 1) - 1 ? selectedImageIndex + 1 : 0)}
                           aria-label="Next image"
                         >
                           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,29 +284,7 @@ const EventDetailPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Premium */}
-                  <div className={styles.ticketItem}>
-                    <div className={styles.ticketInfo}>
-                      <span className={styles.ticketName}>Premium</span>
-                      {event.premiumPrice ? (
-                        <span className={styles.ticketPrice}>KSH {Math.floor(event.premiumPrice).toLocaleString()}</span>
-                      ) : (
-                        <span className={styles.ticketUnavailable}>Not available</span>
-                      )}
-                    </div>
-                  </div>
                   
-                  {/* Group/Table */}
-                  <div className={styles.ticketItem}>
-                    <div className={styles.ticketInfo}>
-                      <span className={styles.ticketName}>Group/Table</span>
-                      {event.groupPrice || event.tablePrice ? (
-                        <span className={styles.ticketPrice}>KSH {Math.floor(event.groupPrice || event.tablePrice || 0).toLocaleString()}</span>
-                      ) : (
-                        <span className={styles.ticketUnavailable}>Not available</span>
-                      )}
-                    </div>
-                  </div>
                   
                   {/* At the Gate */}
                   <div className={styles.ticketItem}>
