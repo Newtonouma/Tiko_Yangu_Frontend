@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { eventService, Event, generateEventSlug } from '../services/eventService';
 import NavBar from '../components/navbar/NavBar';
+import Footer from '../components/footer/Footer';
 import styles from './EventsPage.module.css';
 
 const EventsPage: React.FC = () => {
@@ -165,46 +166,26 @@ const EventsPage: React.FC = () => {
                         <p className={styles.placeholderText}>No Image</p>
                       </div>
                     )}
-                    
-                    <div className={styles.eventOverlay}>
-                      <div className={styles.eventInfo}>
+                  </div>
+                  
+                  <div className={styles.eventOverlay}>
+                    <div className={styles.eventInfo}>
+                      <div className={styles.eventDetails}>
                         <h3 className={styles.eventTitle}>{event.title}</h3>
-                        <p className={styles.eventVenue}>{event.venue}</p>
-                        {(() => {
-                          // Use regularPrice or fallback to ticketPrice for backward compatibility
-                          const price = Math.floor(event.regularPrice || event.ticketPrice || 0);
-                          const priceString = price.toLocaleString();
-                          const isLongPrice = priceString.length > 5;
-                          const priceClass = priceString.length > 7 ? styles.eventPriceSmall : priceString.length > 5 ? styles.eventPriceMedium : '';
-                          
-                          return (
-                            <div className={`${styles.eventMeta} ${isLongPrice ? styles.eventMetaStacked : ''}`}>
-                              <div className={styles.eventDate}>
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <span>{new Date(event.startDate).toLocaleDateString()}</span>
-                              </div>
-                              <div className={`${styles.eventPrice} ${priceClass}`}>
-                                <span>KSH {priceString}</span>
-                              </div>
-                            </div>
-                          );
-                        })()}
+                        <div className={styles.eventPrice}>
+                          KSH {Math.floor(event.regularPrice || event.ticketPrice || 0).toLocaleString()}
+                        </div>
                       </div>
-                      
-                      <div className={styles.hoverActions}>
-                        <button 
-                          className={styles.buyTicketButton}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            window.location.href = `/events/${generateEventSlug(event.title, event.id)}`;
-                          }}
-                        >
-                          Buy Tickets
-                        </button>
-                      </div>
+                      <button 
+                        className={styles.buyButton}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.location.href = `/events/${generateEventSlug(event.title, event.id)}`;
+                        }}
+                      >
+                        Buy
+                      </button>
                     </div>
                   </div>
                 </Link>
@@ -213,6 +194,7 @@ const EventsPage: React.FC = () => {
           )}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

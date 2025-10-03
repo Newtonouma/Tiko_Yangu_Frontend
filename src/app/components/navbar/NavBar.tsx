@@ -8,15 +8,25 @@ import styles from './NavBar.module.css';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAuthDropdownOpen, setIsAuthDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const authDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const { user, isAuthenticated, logout } = useAuth();
   const router = useRouter();
 
-  // Close dropdown when clicking outside
+  // Close dropdown and mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
+      }
+      if (authDropdownRef.current && !authDropdownRef.current.contains(event.target as Node)) {
+        setIsAuthDropdownOpen(false);
+      }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
       }
     };
 
@@ -28,6 +38,14 @@ const NavBar = () => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleAuthDropdown = () => {
+    setIsAuthDropdownOpen(!isAuthDropdownOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleSearch = () => {
@@ -58,8 +76,53 @@ const NavBar = () => {
           </div>
         </div>
 
+        {/* Navigation Links */}
+        <div className={styles.navLinks}>
+          <button 
+            className={styles.navLink}
+            onClick={() => router.push('/events')}
+          >
+            Events
+          </button>
+          <button 
+            className={styles.navLink}
+            onClick={() => router.push('/support')}
+          >
+            Support
+          </button>
+        </div>
+
         {/* Right section with search and auth */}
         <div className={styles.rightSection}>
+          {/* Mobile Menu Button */}
+          <button 
+            className={styles.mobileMenuButton}
+            onClick={toggleMobileMenu}
+            aria-label="Menu"
+          >
+            <svg 
+              className={styles.menuIcon}
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              {isMobileMenuOpen ? (
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M6 18L18 6M6 6l12 12" 
+                />
+              ) : (
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M4 6h16M4 12h16M4 18h16" 
+                />
+              )}
+            </svg>
+          </button>
           {/* Search Icon */}
           <button 
             className={styles.searchButton}
@@ -232,24 +295,123 @@ const NavBar = () => {
                 )}
               </>
             ) : (
-              <>
-                <button
-                  className={styles.loginButton}
-                  onClick={handleLogin}
+              <div className={styles.unauthSection} ref={authDropdownRef}>
+                <button 
+                  className={styles.authButton}
+                  onClick={toggleAuthDropdown}
+                  aria-label="Account menu"
                 >
-                  Sign In
+                  <div className={styles.userAvatar}>
+                    <svg 
+                      className={styles.userIcon}
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+                      />
+                    </svg>
+                  </div>
+                  <span className={styles.userName}>Account</span>
+                  <svg 
+                    className={`${styles.chevronIcon} ${isAuthDropdownOpen ? styles.chevronUp : ''}`}
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M19 9l-7 7-7-7" 
+                    />
+                  </svg>
                 </button>
-                <button
-                  className={styles.registerButton}
-                  onClick={handleRegister}
-                >
-                  Sign Up
-                </button>
-              </>
+
+                {/* Unauthenticated Dropdown Menu */}
+                {isAuthDropdownOpen && (
+                  <div className={styles.dropdownMenu}>
+                    <button 
+                      onClick={() => {
+                        handleLogin();
+                        setIsAuthDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
+                      <svg 
+                        className={styles.dropdownIcon}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" 
+                        />
+                      </svg>
+                      Sign In
+                    </button>
+                    <button 
+                      onClick={() => {
+                        handleRegister();
+                        setIsAuthDropdownOpen(false);
+                      }}
+                      className={styles.dropdownItem}
+                    >
+                      <svg 
+                        className={styles.dropdownIcon}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" 
+                        />
+                      </svg>
+                      Sign Up
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className={styles.mobileMenu} ref={mobileMenuRef}>
+          <div className={styles.mobileMenuContent}>
+            <button 
+              className={styles.mobileNavLink}
+              onClick={() => {
+                router.push('/events');
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Events
+            </button>
+            <button 
+              className={styles.mobileNavLink}
+              onClick={() => {
+                router.push('/support');
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Support
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

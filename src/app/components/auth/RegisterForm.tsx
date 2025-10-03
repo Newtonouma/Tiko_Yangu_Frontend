@@ -46,7 +46,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin, onClose })
       console.log('Attempting registration with:', { name, email });
       await register(name, email, password);
       console.log('Registration successful');
-      router.push('/'); // Redirect to home on successful registration
+      router.push('/login'); // Redirect to login page after successful registration
     } catch (err) {
       console.error('Registration error:', err);
       setError(err instanceof Error ? err.message : 'Registration failed');
@@ -59,7 +59,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin, onClose })
     <div className={styles.registerForm}>
       <div className={styles.header}>
         <h2 className={styles.title}>Create Account</h2>
-        <p className={styles.subtitle}>Join TikoYangu as an event organizer</p>
+        <p className={styles.subtitle}>Join us and start organizing amazing events</p>
       </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -101,6 +101,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin, onClose })
             required
           />
         </div>
+
+
 
         <div className={styles.inputGroup}>
           <label htmlFor="password" className={styles.label}>

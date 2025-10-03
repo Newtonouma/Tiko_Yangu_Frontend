@@ -20,6 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 }
 
 /* Logo Section */
@@ -45,6 +46,55 @@
 
 .logoText:hover {
   color: rgb(45, 85, 150);
+}
+
+/* Navigation Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+}
+
+.navLink:hover {
+  background: rgba(45, 85, 150, 0.15);
+  color: rgb(147, 197, 253);
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(45, 85, 150, 0.1);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.mobileMenuButton:hover {
+  background: rgba(45, 85, 150, 0.2);
+}
+
+.menuIcon {
+  width: 20px;
+  height: 20px;
 }
 
 /* Right Section */
@@ -141,11 +191,22 @@
   font-family: var(--font-inter), sans-serif;
 }
 
+.userIcon {
+  width: 18px;
+  height: 18px;
+}
+
 .userName {
   font-size: 0.9rem;
   font-weight: 500;
   color: white;
   font-family: var(--font-inter), sans-serif;
+}
+
+.unauthSection {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 /* Login/Register Buttons for Non-Authenticated Users */
@@ -348,9 +409,58 @@
 }
 
 /* Responsive Design */
+/* Mobile Menu */
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(10, 20, 40, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(45, 85, 150, 0.2);
+  z-index: 40;
+}
+
+.mobileMenuContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobileNavLink {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.mobileNavLink:hover {
+  background: rgba(45, 85, 150, 0.15);
+  color: rgb(147, 197, 253);
+}
+
 @media (max-width: 768px) {
   .navContainer {
     padding: 0 1rem;
+    gap: 1rem;
+  }
+  
+  .navLinks {
+    display: none;
+  }
+  
+  .mobileMenuButton {
+    display: flex;
   }
   
   .logoText {
