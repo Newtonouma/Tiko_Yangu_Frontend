@@ -327,27 +327,39 @@ const EventDetailPage: React.FC = () => {
                 <h3 className={styles.sectionTitle}>Payment Methods</h3>
                 <div className={styles.paymentMethods}>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>📱</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/mpesa-logo.png" alt="M-Pesa" height={24} />
+                    </span>
                     <span>M-Pesa</span>
                   </button>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>📱</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/Airtel-Money-Logo.png" alt="Airtel Money" height={24} />
+                    </span>
                     <span>Airtel Money</span>
                   </button>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>🏦</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/kcb.jpg" alt="KCB" height={24} />
+                    </span>
                     <span>KCB</span>
                   </button>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>🏦</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/equity.png" alt="Equity" height={24} />
+                    </span>
                     <span>Equity</span>
                   </button>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>🏦</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/ncba.png" alt="NCBA" height={24} />
+                    </span>
                     <span>NCBA</span>
                   </button>
                   <button className={styles.paymentButton} onClick={() => setShowPurchaseForm(true)}>
-                    <span className={styles.paymentIcon}>🏦</span>
+                    <span className={styles.paymentIcon}>
+                      <img src="/images/pay-logos/i&m.png" alt="I&M Bank" height={24} />
+                    </span>
                     <span>I&M Bank</span>
                   </button>
                 </div>
