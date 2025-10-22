@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return response.json();
     } catch (error) {
       if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Unable to connect to server. Please check if the server is running on http://localhost:3000');
+        throw new Error(`Unable to connect to server at ${API_BASE_URL}. Please check your connection and try again.`);
       }
       throw error;
     }
