@@ -12,6 +12,13 @@ export interface TicketTypeInfo {
   available: boolean;
 }
 
+export interface GroupTicket {
+  id: string;
+  name: string;
+  memberCount: number;
+  price: number;
+}
+
 export interface Event {
   id: number;
   title: string;
@@ -32,6 +39,8 @@ export interface Event {
   atTheGatePrice?: number;
   // Backward compatibility
   ticketPrice: number;
+  // Group tickets
+  groupTickets?: GroupTicket[];
   organizer: {
     id: number;
     name: string;

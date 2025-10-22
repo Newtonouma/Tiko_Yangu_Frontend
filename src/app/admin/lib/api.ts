@@ -77,6 +77,8 @@ export const usersAPI = {
     }),
   activate: (id: number) => apiRequest(`/users/${id}/activate`, { method: 'PUT' }),
   deactivate: (id: number) => apiRequest(`/users/${id}/deactivate`, { method: 'PUT' }),
+  grantMarketingAccess: (id: number) => apiRequest(`/users/${id}/grant-marketing`, { method: 'PUT' }),
+  revokeMarketingAccess: (id: number) => apiRequest(`/users/${id}/revoke-marketing`, { method: 'PUT' }),
   delete: (id: number) => apiRequest(`/users/${id}`, { method: 'DELETE' }),
   createAdmin: (userData: any) => 
     apiRequest('/users/admin', {
@@ -176,3 +178,21 @@ export const auditAPI = {
       body: JSON.stringify({ daysToKeep }),
     }),
 };
+
+// Admin Broadcast API
+export const adminBroadcast = (broadcastData: {
+  targetType: string;
+  eventId?: string;
+  organizerId?: string;
+  subject: string;
+  message: string;
+  sendEmail: boolean;
+  sendSms: boolean;
+}) => 
+  apiRequest('/marketing/admin-broadcast', {
+    method: 'POST',
+    body: JSON.stringify(broadcastData),
+  });
+
+export const getAdminBroadcastTargets = () => 
+  apiRequest('/marketing/admin-broadcast-targets');

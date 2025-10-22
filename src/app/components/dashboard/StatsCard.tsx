@@ -19,25 +19,25 @@ export default function StatsCard({
   className = '' 
 }: StatsCardProps) {
   return (
-    <div className={`bg-gray-800 backdrop-blur-lg bg-opacity-70 border border-gray-700 rounded-xl p-6 ${className}`}>
+    <div className={`bg-gray-800 backdrop-blur-lg bg-opacity-70 border border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 ${className}`}>
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-400 text-sm font-medium">{title}</p>
-          <p className="text-3xl font-bold text-white mt-2">{value}</p>
+        <div className="min-w-0 flex-1">
+          <p className="text-gray-400 text-xs sm:text-sm font-medium truncate">{title}</p>
+          <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-white mt-1 sm:mt-2">{value}</p>
           {trend && (
-            <div className="flex items-center mt-2">
+            <div className="flex items-center mt-1 sm:mt-2">
               <span
-                className={`text-sm font-medium ${
+                className={`text-xs sm:text-sm font-medium ${
                   trend.isPositive ? 'text-green-400' : 'text-red-400'
                 }`}
               >
                 {trend.isPositive ? '+' : '-'}{Math.abs(trend.value)}%
               </span>
-              <span className="text-gray-400 text-sm ml-2">from last month</span>
+              <span className="text-gray-400 text-xs sm:text-sm ml-1 sm:ml-2 hidden sm:inline">from last month</span>
             </div>
           )}
         </div>
-        <div className="text-blue-400 text-3xl opacity-80">
+        <div className="text-blue-400 text-xl sm:text-2xl lg:text-3xl opacity-80 ml-2 flex-shrink-0">
           {icon}
         </div>
       </div>

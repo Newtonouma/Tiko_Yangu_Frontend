@@ -20,6 +20,7 @@ interface User {
   email: string;
   role: string;
   isActive: boolean;
+  marketingAccess: boolean;
   createdAt: string;
 }
 
@@ -117,6 +118,9 @@ function UserTable({ users, onUserAction }: {
                 Status
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Marketing Access
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Joined
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -149,6 +153,28 @@ function UserTable({ users, onUserAction }: {
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                     {user.isActive ? 'Active' : 'Inactive'}
                   </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {user.role === 'event_organizer' ? (
+                    <div className="flex items-center space-x-2">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${user.marketingAccess ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
+                        {user.marketingAccess ? 'Granted' : 'Denied'}
+                      </span>
+                      <button
+                        onClick={() => onUserAction(user.marketingAccess ? 'revoke-marketing' : 'grant-marketing', user.id)}
+                        className={`text-xs px-2 py-1 rounded-md transition-colors ${
+                          user.marketingAccess 
+                            ? 'bg-red-100 text-red-800 hover:bg-red-200' 
+                            : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+                        }`}
+                        title={user.marketingAccess ? 'Revoke marketing access' : 'Grant marketing access'}
+                      >
+                        {user.marketingAccess ? 'Revoke' : 'Grant'}
+                      </button>
+                    </div>
+                  ) : (
+                    <span className="text-xs text-gray-400">N/A</span>
+                  )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(user.createdAt).toLocaleDateString()}
@@ -219,6 +245,12 @@ export default function UsersPage() {
           break;
         case 'deactivate':
           await usersAPI.deactivate(userId);
+          break;
+        case 'grant-marketing':
+          await usersAPI.grantMarketingAccess(userId);
+          break;
+        case 'revoke-marketing':
+          await usersAPI.revokeMarketingAccess(userId);
           break;
         case 'delete':
           if (confirm('Are you sure you want to delete this user?')) {

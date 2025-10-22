@@ -7,6 +7,7 @@ import { eventService, Event, getIdFromSlug } from '../../services/eventService'
 import { ticketService } from '../../services/ticketService';
 import NavBar from '../../components/navbar/NavBar';
 import TicketPurchaseForm from '../../components/tickets/TicketPurchaseForm';
+import RichTextDisplay from '../../components/RichTextDisplay';
 import styles from './EventDetail.module.css';
 
 const EventDetailPage: React.FC = () => {
@@ -224,7 +225,7 @@ const EventDetailPage: React.FC = () => {
                     </button>
                   </div>
                   <div className={`${styles.descriptionContent} ${isDescriptionExpanded ? styles.expanded : styles.collapsed}`}>
-                    <p>{event.description}</p>
+                    <RichTextDisplay content={event.description} />
                   </div>
                 </div>
               </div>

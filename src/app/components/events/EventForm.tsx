@@ -2,6 +2,14 @@
 
 import React, { useState, useRef } from 'react';
 import styles from './EventForm.module.css';
+import RichTextEditor from '../RichTextEditorWrapper';
+
+export interface GroupTicket {
+  id: number;
+  name: string;
+  memberCount: number;
+  price: number;
+}
 
 export interface EventFormData {
   title: string;
@@ -18,6 +26,8 @@ export interface EventFormData {
   vipPrice?: number;
   vvipPrice?: number;
   atTheGatePrice?: number;
+  // Group tickets (up to 4)
+  groupTickets?: GroupTicket[];
   // Backward compatibility
   ticketPrice: number;
   images?: File[] | string[]; // Can be File objects (new uploads) or strings (existing URLs)
@@ -55,10 +65,21 @@ const EventForm: React.FC<EventFormProps> = ({
     vipPrice: initialData.vipPrice || undefined,
     vvipPrice: initialData.vvipPrice || undefined,
     atTheGatePrice: initialData.atTheGatePrice || undefined,
+    // Group tickets
+    groupTickets: initialData.groupTickets || [],
     // Backward compatibility
     ticketPrice: initialData.regularPrice || initialData.ticketPrice || 0,
     url: initialData.url || '',
     images: []
+  });
+
+  // State to track display values for price inputs
+  const [priceDisplayValues, setPriceDisplayValues] = useState({
+    regularPrice: initialData.regularPrice && initialData.regularPrice > 0 ? `KSH ${Math.floor(initialData.regularPrice).toLocaleString()}` : '',
+    earlybirdPrice: initialData.earlybirdPrice && initialData.earlybirdPrice > 0 ? `KSH ${Math.floor(initialData.earlybirdPrice).toLocaleString()}` : '',
+    vipPrice: initialData.vipPrice && initialData.vipPrice > 0 ? `KSH ${Math.floor(initialData.vipPrice).toLocaleString()}` : '',
+    vvipPrice: initialData.vvipPrice && initialData.vvipPrice > 0 ? `KSH ${Math.floor(initialData.vvipPrice).toLocaleString()}` : '',
+    atTheGatePrice: initialData.atTheGatePrice && initialData.atTheGatePrice > 0 ? `KSH ${Math.floor(initialData.atTheGatePrice).toLocaleString()}` : ''
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -74,6 +95,8 @@ const EventForm: React.FC<EventFormProps> = ({
       setExistingImages(imageUrls);
     }
   }, [isEdit, initialData.images]);
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -107,6 +130,42 @@ const EventForm: React.FC<EventFormProps> = ({
     setExistingImages(newExistingImages);
   };
 
+  // Group ticket management functions
+  const addGroupTicket = () => {
+    if (formData.groupTickets && formData.groupTickets.length >= 4) {
+      alert('Maximum 4 group tickets allowed');
+      return;
+    }
+
+    const newGroupTicket: GroupTicket = {
+      id: Date.now(), // Simple ID generation
+      name: `Group ${(formData.groupTickets?.length || 0) + 1}`,
+      memberCount: 2,
+      price: 0
+    };
+
+    setFormData(prev => ({
+      ...prev,
+      groupTickets: [...(prev.groupTickets || []), newGroupTicket]
+    }));
+  };
+
+  const updateGroupTicket = (id: number, field: keyof GroupTicket, value: string | number) => {
+    setFormData(prev => ({
+      ...prev,
+      groupTickets: prev.groupTickets?.map(ticket => 
+        ticket.id === id ? { ...ticket, [field]: value } : ticket
+      ) || []
+    }));
+  };
+
+  const removeGroupTicket = (id: number) => {
+    setFormData(prev => ({
+      ...prev,
+      groupTickets: prev.groupTickets?.filter(ticket => ticket.id !== id) || []
+    }));
+  };
+
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -114,7 +173,7 @@ const EventForm: React.FC<EventFormProps> = ({
       newErrors.title = 'Event title is required';
     }
 
-    if (!formData.description.trim()) {
+    if (!formData.description.trim() || formData.description === '<p></p>') {
       newErrors.description = 'Event description is required';
     }
 
@@ -328,15 +387,17 @@ const EventForm: React.FC<EventFormProps> = ({
             <label htmlFor="description" className={styles.label}>
               Description *
             </label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              className={`${styles.textarea} ${errors.description ? styles.inputError : ''}`}
+            <RichTextEditor
+              content={formData.description}
+              onChange={(content) => {
+                setFormData(prev => ({ ...prev, description: content }));
+                if (errors.description) {
+                  setErrors(prev => ({ ...prev, description: '' }));
+                }
+              }}
               placeholder="Describe your event in detail"
-              rows={4}
-              disabled={isLoading}
+              className={errors.description ? 'border-red-500' : ''}
+              editable={!isLoading}
             />
             {errors.description && <span className={styles.error}>{errors.description}</span>}
           </div>
@@ -473,14 +534,49 @@ const EventForm: React.FC<EventFormProps> = ({
                 <input
                   id="regularPrice"
                   name="regularPrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.regularPrice}
+                  type="text"
+                  value={priceDisplayValues.regularPrice}
                   onChange={(e) => {
-                    handleInputChange(e);
-                    // Update ticketPrice for backward compatibility
-                    setFormData(prev => ({ ...prev, ticketPrice: parseFloat(e.target.value) || 0 }));
+                    // Update display value as user types
+                    setPriceDisplayValues(prev => ({ ...prev, regularPrice: e.target.value }));
+                    
+                    // Extract numeric value from formatted string
+                    const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                    const parsedValue = parseFloat(numericValue) || 0;
+                    
+                    // Update form data with numeric value
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      regularPrice: parsedValue,
+                      ticketPrice: parsedValue // Update ticketPrice for backward compatibility
+                    }));
+
+                    // Clear errors
+                    if (errors.regularPrice) {
+                      setErrors(prev => ({ ...prev, regularPrice: '' }));
+                    }
+                  }}
+                  onFocus={(e) => {
+                    // Show raw number when focused for editing
+                    if (formData.regularPrice > 0) {
+                      const rawValue = formData.regularPrice.toString();
+                      e.target.value = rawValue;
+                      setPriceDisplayValues(prev => ({ ...prev, regularPrice: rawValue }));
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Show formatted value when not focused
+                    const numericValue = parseFloat(e.target.value) || 0;
+                    
+                    // Update formData with the final value
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      regularPrice: numericValue,
+                      ticketPrice: numericValue
+                    }));
+                    
+                    const formattedValue = numericValue > 0 ? `KSH ${Math.floor(numericValue).toLocaleString()}` : '';
+                    setPriceDisplayValues(prev => ({ ...prev, regularPrice: formattedValue }));
                   }}
                   className={`${styles.input} ${errors.regularPrice ? styles.inputError : ''}`}
                   disabled={isLoading}
@@ -497,11 +593,48 @@ const EventForm: React.FC<EventFormProps> = ({
                 <input
                   id="earlybirdPrice"
                   name="earlybirdPrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.earlybirdPrice || ''}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={priceDisplayValues.earlybirdPrice}
+                  onChange={(e) => {
+                    // Update display value as user types
+                    setPriceDisplayValues(prev => ({ ...prev, earlybirdPrice: e.target.value }));
+                    
+                    // Extract numeric value from formatted string
+                    const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                    const parsedValue = numericValue ? parseFloat(numericValue) : undefined;
+                    
+                    // Update form data
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      earlybirdPrice: parsedValue
+                    }));
+
+                    // Clear errors
+                    if (errors.earlybirdPrice) {
+                      setErrors(prev => ({ ...prev, earlybirdPrice: '' }));
+                    }
+                  }}
+                  onFocus={(e) => {
+                    // Show raw number when focused for editing
+                    if (formData.earlybirdPrice && formData.earlybirdPrice > 0) {
+                      const rawValue = formData.earlybirdPrice.toString();
+                      e.target.value = rawValue;
+                      setPriceDisplayValues(prev => ({ ...prev, earlybirdPrice: rawValue }));
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Show formatted value when not focused
+                    const numericValue = parseFloat(e.target.value) || 0;
+                    
+                    // Update formData with the final value
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      earlybirdPrice: numericValue > 0 ? numericValue : undefined
+                    }));
+                    
+                    const formattedValue = numericValue > 0 ? `KSH ${Math.floor(numericValue).toLocaleString()}` : '';
+                    setPriceDisplayValues(prev => ({ ...prev, earlybirdPrice: formattedValue }));
+                  }}
                   className={`${styles.input} ${errors.earlybirdPrice ? styles.inputError : ''}`}
                   disabled={isLoading}
                   placeholder="Optional earlybird price"
@@ -517,11 +650,39 @@ const EventForm: React.FC<EventFormProps> = ({
                 <input
                   id="vipPrice"
                   name="vipPrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.vipPrice || ''}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={formData.vipPrice && formData.vipPrice > 0 ? `KSH ${Math.floor(formData.vipPrice).toLocaleString()}` : ''}
+                  onChange={(e) => {
+                    // Extract numeric value from formatted string
+                    const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                    const parsedValue = numericValue ? parseFloat(numericValue) : undefined;
+                    
+                    // Update form data
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      vipPrice: parsedValue
+                    }));
+
+                    // Clear errors
+                    if (errors.vipPrice) {
+                      setErrors(prev => ({ ...prev, vipPrice: '' }));
+                    }
+                  }}
+                  onFocus={(e) => {
+                    // Show raw number when focused for editing
+                    if (formData.vipPrice && formData.vipPrice > 0) {
+                      e.target.value = formData.vipPrice.toString();
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Show formatted value when not focused
+                    const numericValue = parseFloat(e.target.value) || 0;
+                    if (numericValue > 0) {
+                      e.target.value = `KSH ${Math.floor(numericValue).toLocaleString()}`;
+                    } else {
+                      e.target.value = '';
+                    }
+                  }}
                   className={`${styles.input} ${errors.vipPrice ? styles.inputError : ''}`}
                   disabled={isLoading}
                   placeholder="Optional VIP price"
@@ -537,11 +698,39 @@ const EventForm: React.FC<EventFormProps> = ({
                 <input
                   id="vvipPrice"
                   name="vvipPrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.vvipPrice || ''}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={formData.vvipPrice && formData.vvipPrice > 0 ? `KSH ${Math.floor(formData.vvipPrice).toLocaleString()}` : ''}
+                  onChange={(e) => {
+                    // Extract numeric value from formatted string
+                    const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                    const parsedValue = numericValue ? parseFloat(numericValue) : undefined;
+                    
+                    // Update form data
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      vvipPrice: parsedValue
+                    }));
+
+                    // Clear errors
+                    if (errors.vvipPrice) {
+                      setErrors(prev => ({ ...prev, vvipPrice: '' }));
+                    }
+                  }}
+                  onFocus={(e) => {
+                    // Show raw number when focused for editing
+                    if (formData.vvipPrice && formData.vvipPrice > 0) {
+                      e.target.value = formData.vvipPrice.toString();
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Show formatted value when not focused
+                    const numericValue = parseFloat(e.target.value) || 0;
+                    if (numericValue > 0) {
+                      e.target.value = `KSH ${Math.floor(numericValue).toLocaleString()}`;
+                    } else {
+                      e.target.value = '';
+                    }
+                  }}
                   className={`${styles.input} ${errors.vvipPrice ? styles.inputError : ''}`}
                   disabled={isLoading}
                   placeholder="Optional VVIP price"
@@ -557,11 +746,39 @@ const EventForm: React.FC<EventFormProps> = ({
                 <input
                   id="atTheGatePrice"
                   name="atTheGatePrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={formData.atTheGatePrice || ''}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={formData.atTheGatePrice && formData.atTheGatePrice > 0 ? `KSH ${Math.floor(formData.atTheGatePrice).toLocaleString()}` : ''}
+                  onChange={(e) => {
+                    // Extract numeric value from formatted string
+                    const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                    const parsedValue = numericValue ? parseFloat(numericValue) : undefined;
+                    
+                    // Update form data
+                    setFormData(prev => ({ 
+                      ...prev, 
+                      atTheGatePrice: parsedValue
+                    }));
+
+                    // Clear errors
+                    if (errors.atTheGatePrice) {
+                      setErrors(prev => ({ ...prev, atTheGatePrice: '' }));
+                    }
+                  }}
+                  onFocus={(e) => {
+                    // Show raw number when focused for editing
+                    if (formData.atTheGatePrice && formData.atTheGatePrice > 0) {
+                      e.target.value = formData.atTheGatePrice.toString();
+                    }
+                  }}
+                  onBlur={(e) => {
+                    // Show formatted value when not focused
+                    const numericValue = parseFloat(e.target.value) || 0;
+                    if (numericValue > 0) {
+                      e.target.value = `KSH ${Math.floor(numericValue).toLocaleString()}`;
+                    } else {
+                      e.target.value = '';
+                    }
+                  }}
                   className={`${styles.input} ${errors.atTheGatePrice ? styles.inputError : ''}`}
                   disabled={isLoading}
                   placeholder="Optional at-the-gate price"
@@ -569,6 +786,124 @@ const EventForm: React.FC<EventFormProps> = ({
                 {errors.atTheGatePrice && <span className={styles.error}>{errors.atTheGatePrice}</span>}
               </div>
             </div>
+          </div>
+
+          {/* Group Tickets Section */}
+          <div className={styles.ticketPricesSection}>
+            <h4 className={styles.subsectionTitle}>Group Tickets</h4>
+            <p className={styles.subsectionDescription}>
+              Create group tickets for teams, families, or organizations. You can create up to 4 different group types.
+            </p>
+            <button
+              type="button"
+              onClick={addGroupTicket}
+              className={styles.addGroupButton}
+              disabled={isLoading || (formData.groupTickets && formData.groupTickets.length >= 4)}
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Add Group Ticket ({formData.groupTickets?.length || 0}/4)
+            </button>
+
+            {formData.groupTickets && formData.groupTickets.length > 0 && (
+              <div className={styles.groupTicketsList}>
+                {formData.groupTickets.map((groupTicket, index) => (
+                  <div key={groupTicket.id} className={styles.groupTicketItem}>
+                    <div className={styles.groupTicketHeader}>
+                      <h5 className={styles.groupTicketTitle}>Group Ticket {index + 1}</h5>
+                      <button
+                        type="button"
+                        onClick={() => removeGroupTicket(groupTicket.id)}
+                        className={styles.removeGroupButton}
+                        disabled={isLoading}
+                        title="Remove group ticket"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className={styles.ticketPricesGrid}>
+                      {/* Group Name */}
+                      <div className={styles.inputGroup}>
+                        <label className={styles.label}>Group Name</label>
+                        <input
+                          type="text"
+                          value={groupTicket.name}
+                          onChange={(e) => updateGroupTicket(groupTicket.id, 'name', e.target.value)}
+                          className={styles.input}
+                          placeholder="e.g., Family Pack, Team Bundle"
+                          disabled={isLoading}
+                        />
+                      </div>
+
+                      {/* Member Count */}
+                      <div className={styles.inputGroup}>
+                        <label className={styles.label}>Number of Members</label>
+                        <input
+                          type="number"
+                          min="2"
+                          max="50"
+                          value={groupTicket.memberCount}
+                          onChange={(e) => updateGroupTicket(groupTicket.id, 'memberCount', parseInt(e.target.value) || 2)}
+                          className={styles.input}
+                          disabled={isLoading}
+                        />
+                      </div>
+
+                      {/* Group Price */}
+                      <div className={styles.inputGroup}>
+                        <label className={styles.label}>Group Price (KSH)</label>
+                        <input
+                          type="text"
+                          value={groupTicket.price > 0 ? `KSH ${Math.floor(groupTicket.price).toLocaleString()}` : ''}
+                          onChange={(e) => {
+                            const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                            const parsedValue = parseFloat(numericValue) || 0;
+                            updateGroupTicket(groupTicket.id, 'price', parsedValue);
+                          }}
+                          onFocus={(e) => {
+                            if (groupTicket.price > 0) {
+                              e.target.value = groupTicket.price.toString();
+                            }
+                          }}
+                          onBlur={(e) => {
+                            const numericValue = parseFloat(e.target.value) || 0;
+                            updateGroupTicket(groupTicket.id, 'price', numericValue);
+                            if (numericValue > 0) {
+                              e.target.value = `KSH ${Math.floor(numericValue).toLocaleString()}`;
+                            } else {
+                              e.target.value = '';
+                            }
+                          }}
+                          className={styles.input}
+                          placeholder="Enter group price"
+                          disabled={isLoading}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Group Ticket Preview */}
+                    <div className={styles.groupTicketPreview}>
+                      <div className={styles.previewLabel}>Preview:</div>
+                      <div className={styles.previewContent}>
+                        <span className={styles.previewName}>{groupTicket.name || 'Unnamed Group'}</span>
+                        <span className={styles.previewDetails}>
+                          {groupTicket.memberCount} members • KSH {Math.floor(groupTicket.price).toLocaleString()}
+                          {groupTicket.price > 0 && (
+                            <span className={styles.pricePerPerson}>
+                              (KSH {Math.floor(groupTicket.price / groupTicket.memberCount).toLocaleString()} per person)
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

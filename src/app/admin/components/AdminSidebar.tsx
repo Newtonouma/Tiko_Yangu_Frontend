@@ -13,6 +13,7 @@ import {
   ClipboardDocumentListIcon,
   Bars3Icon,
   XMarkIcon,
+  SpeakerWaveIcon,
 } from '@heroicons/react/24/outline';
 
 interface SidebarProps {
@@ -25,6 +26,7 @@ const navigation = [
   { name: 'Users', href: '/admin/users', icon: UsersIcon },
   { name: 'Events', href: '/admin/events', icon: CalendarIcon },
   { name: 'Tickets', href: '/admin/tickets', icon: TicketIcon },
+  { name: 'Communications', href: '/admin/communications', icon: SpeakerWaveIcon },
   { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },
   { name: 'Settings', href: '/admin/settings', icon: CogIcon },
   { name: 'Audit Logs', href: '/admin/audit', icon: ClipboardDocumentListIcon },
@@ -54,6 +56,7 @@ export default function AdminSidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <button
             onClick={toggleSidebar}
             className="lg:hidden p-2 rounded-md hover:bg-gray-800"
+            aria-label="Close sidebar"
           >
             <XMarkIcon className="h-6 w-6" />
           </button>

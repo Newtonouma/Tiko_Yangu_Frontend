@@ -157,6 +157,69 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({
               </div>
             )}
           </div>
+
+          {/* Ticket Pricing Section */}
+          <div className={styles.pricingSection}>
+            <h2 className={styles.sectionTitle}>Ticket Pricing</h2>
+            
+            {/* Individual Tickets */}
+            <div className={styles.ticketTypeSection}>
+              <h3 className={styles.ticketTypeTitle}>Individual Tickets</h3>
+              <div className={styles.ticketGrid}>
+                {event.earlybirdPrice && (
+                  <div className={styles.ticketCard}>
+                    <div className={styles.ticketType}>Earlybird</div>
+                    <div className={styles.ticketPrice}>KSH {Math.floor(event.earlybirdPrice).toLocaleString()}</div>
+                  </div>
+                )}
+                <div className={styles.ticketCard}>
+                  <div className={styles.ticketType}>Regular</div>
+                  <div className={styles.ticketPrice}>KSH {Math.floor(event.regularPrice).toLocaleString()}</div>
+                </div>
+                {event.vipPrice && (
+                  <div className={styles.ticketCard}>
+                    <div className={styles.ticketType}>VIP</div>
+                    <div className={styles.ticketPrice}>KSH {Math.floor(event.vipPrice).toLocaleString()}</div>
+                  </div>
+                )}
+                {event.vvipPrice && (
+                  <div className={styles.ticketCard}>
+                    <div className={styles.ticketType}>VVIP</div>
+                    <div className={styles.ticketPrice}>KSH {Math.floor(event.vvipPrice).toLocaleString()}</div>
+                  </div>
+                )}
+                {event.atTheGatePrice && (
+                  <div className={styles.ticketCard}>
+                    <div className={styles.ticketType}>At the Gate</div>
+                    <div className={styles.ticketPrice}>KSH {Math.floor(event.atTheGatePrice).toLocaleString()}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Group Tickets */}
+            {event.groupTickets && event.groupTickets.length > 0 && (
+              <div className={styles.ticketTypeSection}>
+                <h3 className={styles.ticketTypeTitle}>Group Tickets</h3>
+                <div className={styles.groupTicketGrid}>
+                  {event.groupTickets.map((groupTicket) => (
+                    <div key={groupTicket.id} className={styles.groupTicketCard}>
+                      <div className={styles.groupTicketHeader}>
+                        <div className={styles.groupTicketName}>{groupTicket.name}</div>
+                        <div className={styles.groupTicketPrice}>KSH {Math.floor(groupTicket.price).toLocaleString()}</div>
+                      </div>
+                      <div className={styles.groupTicketDetails}>
+                        <span className={styles.memberCount}>{groupTicket.memberCount} members</span>
+                        <span className={styles.pricePerPerson}>
+                          KSH {Math.floor(groupTicket.price / groupTicket.memberCount).toLocaleString()} per person
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Action Buttons */}

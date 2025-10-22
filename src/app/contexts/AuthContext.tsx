@@ -7,6 +7,7 @@ export interface User {
   name: string;
   email: string;
   role: 'admin' | 'event_organizer';
+  marketingAccess?: boolean;
   createdAt: string;
   updatedAt: string;
 }
