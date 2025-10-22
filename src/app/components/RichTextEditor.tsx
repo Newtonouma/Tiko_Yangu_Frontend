@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { FontFamily } from '@tiptap/extension-font-family';
@@ -29,7 +29,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   className = "",
   editable = true
 }) => {
-  const editor = useEditor({
+  const editor: Editor | null = useEditor({
     extensions: [
       StarterKit.configure({
         bulletList: {
@@ -70,10 +70,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           HTMLAttributes: {
             class: 'code-block',
           },
-        },
-        history: {
-          depth: 100,
-          newGroupDelay: 1000,
         },
       }),
       TextStyle,
