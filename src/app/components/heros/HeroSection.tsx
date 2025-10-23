@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
 import styles from './HeroSection.module.css'
 
@@ -122,12 +123,9 @@ export default function HeroSection() {
           
           {/* Call to action buttons */}
           <div className={styles.buttonContainer}>
-            <button 
-              className={styles.primaryButton}
-              onClick={() => router.push('/events')}
-            >
-              Explore Events
-            </button>
+            <Link href="/events" className={styles.primaryButton}>
+              Explore more events
+            </Link>
             <button 
               className={styles.secondaryButton}
               onClick={() => router.push('/login')}
