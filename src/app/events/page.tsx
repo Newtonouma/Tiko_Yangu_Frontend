@@ -6,6 +6,13 @@ import { eventService, Event, generateEventSlug } from '../services/eventService
 import NavBar from '../components/navbar/NavBar';
 import Footer from '../components/footer/Footer';
 import styles from './EventsPage.module.css';
+import {
+  CalendarIcon,
+  MapPinIcon,
+  CurrencyDollarIcon,
+  ArrowRightIcon,
+  PhotoIcon,
+} from '@heroicons/react/24/outline';
 
 const EventsPage: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -58,6 +65,16 @@ const EventsPage: React.FC = () => {
   };
 
   const filteredEvents = getFilteredEvents();
+
+  // Format date helper function (match home page)
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
 
   if (isLoading) {
     return (
@@ -142,50 +159,75 @@ const EventsPage: React.FC = () => {
               </p>
             </div>
           ) : (
-            <div className={styles.eventsGrid}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6 mb-12">
               {filteredEvents.map((event) => (
-                <Link 
-                  key={event.id} 
+                <Link
+                  key={event.id}
                   href={`/events/${generateEventSlug(event.title, event.id)}`}
-                  className={styles.eventCard}
+                  className="group bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
                 >
-                  <div className={styles.posterContainer}>
+                  {/* Event Image */}
+                  <div className="aspect-[4/3] relative overflow-hidden">
                     {event.images && event.images.length > 0 ? (
-                      <img 
-                        src={event.images[0]} 
+                      <img
+                        src={event.images[0]}
                         alt={event.title}
-                        className={styles.posterImage}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className={styles.placeholderPoster}>
-                        <div className={styles.placeholderIcon}>
-                          <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <p className={styles.placeholderText}>No Image</p>
+                      <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <PhotoIcon className="h-12 w-12 text-white/70" />
                       </div>
                     )}
+
+                    {/* Status Badge */}
+                    <div className="absolute top-2 left-2">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                        {event.status}
+                      </span>
+                    </div>
                   </div>
-                  
-                  <div className={styles.eventOverlay}>
-                    <div className={styles.eventInfo}>
-                      <div className={styles.eventDetails}>
-                        <h3 className={styles.eventTitle}>{event.title}</h3>
-                        <div className={styles.eventPrice}>
-                          KSH {Math.floor(event.regularPrice || event.ticketPrice || 0).toLocaleString()}
-                        </div>
+
+                  {/* Event Content */}
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-200 line-clamp-2">
+                      {event.title}
+                    </h3>
+
+                    {/* Event Meta Information */}
+                    <div className="space-y-1.5 mb-3">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <CalendarIcon className="h-4 w-4 mr-2 text-indigo-500" />
+                        <span className="font-medium">{formatDate(event.startDate)}</span>
                       </div>
-                      <button 
-                        className={styles.buyButton}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          window.location.href = `/events/${generateEventSlug(event.title, event.id)}`;
-                        }}
-                      >
-                        Buy
-                      </button>
+
+                      <div className="flex items-center text-sm text-gray-600">
+                        <MapPinIcon className="h-4 w-4 mr-2 text-indigo-500" />
+                        <span>{event.venue}</span>
+                      </div>
+
+                      <div className="flex items-center text-sm text-gray-600">
+                        <CurrencyDollarIcon className="h-4 w-4 mr-2 text-indigo-500" />
+                        <span className="font-semibold text-indigo-600">
+                          From KSH {Math.floor(event.regularPrice || event.ticketPrice || 0).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Location */}
+                    {event.location && (
+                      <p className="text-sm text-gray-500 mb-3">{event.location}</p>
+                    )}
+
+                    {/* Action Button */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-500">
+                        Available Now
+                      </span>
+                      <div className="flex items-center text-indigo-600 group-hover:text-indigo-700 transition-colors duration-200">
+                        <span className="text-xs font-medium mr-1">Details</span>
+                        <ArrowRightIcon className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-200" />
+                      </div>
                     </div>
                   </div>
                 </Link>
